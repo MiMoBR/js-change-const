@@ -1,0 +1,49 @@
+The documentation states:
+
+...constant cannot change through re-assignment
+...constant cannot be re-declared
+
+When you're adding to an array or object you're not re-assigning or re-declaring the constant, it's already declared and assigned, you're just adding to the "list" that the constant points to.
+
+So if you declare 
+
+---> const first = 123;
+
+first
+123
+
+first = 456
+VM153:1 Uncaught TypeError: Assignment to constant variable.
+
+
+----> if Const is a OBJECT
+const x = {};
+x.foo = 'bar';
+console.log(x); // {foo : 'bar'}
+
+x.foo = 'bar2';
+console.log(x); // {foo : 'bar2'}  
+
+----> if Const is a ARRAY
+const y = [];
+y.push('foo');
+console.log(y); // ['foo']
+
+y.unshift("foo2");
+console.log(y); // ['foo2', 'foo']
+
+y.pop();
+console.log(y); // ['foo2']
+
+---->>>>>but neither of these:<<<<<--------
+
+const x = {};
+x = {foo: 'bar'}; // error - re-assigning
+
+const y = ['foo'];
+const y = ['bar']; // error - re-declaring
+
+const foo = 'bar'; 
+foo = 'bar2';       // error - can not re-assign
+var foo = 'bar3';   // error - already declared
+function foo() {};  // error - already declared
